@@ -7,10 +7,15 @@ function createStore(reducer) {
   function dispatch(action){
     state = reducer(state, action);
     render();
+
+    // Dispach in this case help us connect out action to the state ND CONNECT IT TO THE STORE.Í
+    // Action -> Reducers-New state 
   };
   function getState() {
     return state;
   }
+
+
 
   return {
     dispatch,
@@ -45,9 +50,11 @@ function render() {
   container.textContent = store.getState().count;
 };
 
+// WE USE GETSTAE SO WE can get state from the store. 
+// And in line 57, Houw store is created, of which we get our state from
 // dispatch({ type: '@@INIT' })
 
-let store = createStore();
+let store = createStore(reducer);
 store.dispatch({ type: 'INIT' });
 let button = document.getElementById('button');
 
