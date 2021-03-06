@@ -2,7 +2,7 @@ function createStore() {
   // We put 'state' in createStore to control access to. Instead of it being a global variable that can be changed anywhere
   let state
   // We moved 'dispatch' into createStore so the dispatch() function can have access to state. This is true with render() as well.
-  // This is an example of a cluse. The createStore() function encloses the variables and carries them with it when it is envoked later.
+  // This is an example of a closure. The createStore() function encloses the variables and carries them with it when it is envoked later.
   function dispatch(action) {
     state = reducer(state, action)
     render()
