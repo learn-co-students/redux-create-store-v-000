@@ -1,6 +1,20 @@
-let state;
+function createStore(reducer) {
+  let state = { count: 0 };
+  function dispatch(action) {
+    state = reducer(state, action);
+    render();
+  };
+  function getState() {
+    return state;
+  }
 
-function reducer(state = { count: 0 }, action) {
+  return {
+    dispatch,
+    getState
+  }
+}
+
+function reducer(state, action) {
   switch (action.type) {
     case 'INCREASE_COUNT':
       return { count: state.count + 1 };
@@ -9,20 +23,16 @@ function reducer(state = { count: 0 }, action) {
       return state;
   }
 };
+const store = createStore(reducer)
 
-function dispatch(action){
-  state = reducer(state, action);
-  render();
-};
 
 function render() {
   let container = document.getElementById('container');
-  container.textContent = state.count;
+  container.textContent = store.getState().count;
 };
 
-dispatch({ type: '@@INIT' })
-let button = document.getElementById('button');
+store.dispatch({ type: '@@INIT' })
 
-button.addEventListener('click', function() {
-    dispatch({ type: 'INCREASE_COUNT' });
+document.getElementById('button').addEventListener('click', function() {
+    store.dispatch({ type: 'INCREASE_COUNT' });
 })
